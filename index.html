@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>Promotor de Seguros de Salud 2026 — App de Estudio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Fraunces:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <style>
+    :root{
+      --g:#1F4B3E; --g2:#2E6B56; --p:#E6F0EC; --p2:#C5D9D2; --cream:#F8F5EE; --w:#fff;
+      --gray:#566A60; --gray2:#8A9A93; --ok:#2E7D32; --bad:#C62828; --warn:#EF6C00;
+      --shadow: 0 6px 20px rgba(31,75,62,.10);
+      --r:14px; --rs:10px;
+      --fs: 15px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;font-size:var(--fs);line-height:1.5;color:var(--g);background:var(--cream)}
+    a{color:inherit}
+    .hidden{display:none !important}
+
+    /* Login */
+    .login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px;background:linear-gradient(135deg,var(--p) 0%,var(--cream) 70%)}
+    .loginCard{width:min(520px,100%);background:var(--w);border-radius:var(--r);box-shadow:var(--shadow);padding:26px 22px}
+    .brandRow{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+    .logo{width:46px;height:46px;border-radius:50%;background:var(--g);color:#fff;display:flex;align-items:center;justify-content:center}
+    .brandTitle{font-family:Fraunces,serif;font-weight:700;font-size:22px;line-height:1.1}
+    .brandSub{color:var(--gray);font-size:13px;margin-top:3px}
+    .field{margin-top:14px}
+    .label{font-weight:700;font-size:13px;margin-bottom:6px;color:var(--g)}
+    .input{width:100%;padding:12px 12px;border:2px solid var(--p);border-radius:var(--rs);font-size:15px}
+    .input:focus{outline:none;border-color:var(--g2)}
+    .btn{border:0;border-radius:var(--rs);padding:11px 12px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+    .btnPrimary{background:var(--g);color:#fff}
+    .btnPrimary:hover{background:var(--g2)}
+    .btnSoft{background:var(--p);color:var(--g)}
+    .btnSoft:hover{background:var(--p2)}
+    .btnWarn{background:rgba(239,108,0,.12);color:var(--warn)}
+    .btnDanger{background:rgba(198,40,40,.10);color:var(--bad);border:1px solid rgba(198,40,40,.25)}
+    .btnDanger:hover{background:rgba(198,40,40,.16)}
+    .userList{margin-top:18px}
+    .userList h4{font-size:13px;color:var(--gray);margin-bottom:10px}
+    .userItem{background:var(--p);border-radius:var(--rs);padding:10px 12px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
+    .userItem:hover{background:var(--p2)}
+    .pill{font-size:12px;color:var(--gray);background:rgba(255,255,255,.6);padding:2px 8px;border-radius:999px}
+
+    /* App Layout */
+    .app{max-width:1320px;margin:0 auto;padding:14px 14px 18px}
+    .header{background:var(--w);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;border-bottom:4px solid var(--p)}
+    .headerLeft{display:flex;align-items:center;gap:12px}
+    .titleWrap h1{font-family:Fraunces,serif;font-weight:700;font-size:22px;line-height:1.1}
+    .titleWrap p{color:var(--gray);font-size:13px;margin-top:3px}
+    .headerRight{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+    .statsRow{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+    .stat{display:flex;align-items:center;gap:8px;font-weight:800;font-size:13px;color:var(--g)}
+    .stat i{opacity:.95}
+    .stat.ok i{color:var(--ok)}
+    .stat.bad i{color:var(--bad)}
+    .stat.neu i{color:var(--g2)}
+    .userBox{display:flex;align-items:center;gap:10px}
+    .avatar{width:38px;height:38px;border-radius:50%;background:var(--g);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800}
+    .userMeta{display:flex;flex-direction:column;gap:6px}
+    .userMeta .name{font-weight:800;font-size:13px}
+    .userMeta .actions{display:flex;gap:8px}
+
+    .main{display:flex;gap:14px;margin-top:14px;flex-wrap:wrap}
+    .card{background:var(--w);border-radius:var(--r);box-shadow:var(--shadow)}
+    .sidebar{flex:0 0 300px;padding:14px}
+    .content{flex:1;min-width:320px;padding:16px}
+
+    .secTitle{font-family:Fraunces,serif;font-weight:700;font-size:16px;margin-bottom:10px}
+    .divider{height:1px;background:var(--p);margin:10px 0 12px}
+
+    .blockList{display:flex;flex-direction:column;gap:8px}
+    .blockBtn{width:100%;text-align:left;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:12px;border:1px solid transparent;background:var(--p);cursor:pointer;font-weight:800;font-size:13px}
+    .blockBtn:hover{background:var(--p2)}
+    .blockBtn.active{background:var(--g);color:#fff}
+    .blockBtn.active .pill{background:rgba(255,255,255,.22);color:#fff}
+    .blockBtn .name{display:flex;gap:8px;align-items:center}
+    .modeGrid{display:grid;grid-template-columns:1fr;gap:8px}
+    .smallNote{font-size:12px;color:var(--gray);line-height:1.55}
+
+    .panel{display:none}
+    .panel.show{display:block}
+
+    /* Question */
+    .qTop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--p);padding-bottom:12px;margin-bottom:12px}
+    .qMeta{color:var(--gray);font-weight:700;font-size:12px}
+    .qText{font-size:16px;font-weight:700;margin-top:6px}
+    .qCount{background:var(--p);padding:7px 12px;border-radius:999px;font-weight:900;font-size:12px;color:var(--g)}
+    .opts{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+    .opt{border:2px solid var(--p);background:#fff;border-radius:12px;padding:12px 12px;cursor:pointer;text-align:left;display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.45}
+    .opt:hover{border-color:var(--p2);background:rgba(197,217,210,.10)}
+    .badge{width:26px;height:26px;border-radius:50%;background:var(--p);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:12px;color:var(--g);flex:0 0 26px}
+    .opt.selected{border-color:var(--g);background:rgba(31,75,62,.05)}
+    .opt.correct{border-color:rgba(46,125,50,.7);background:rgba(46,125,50,.10)}
+    .opt.correct .badge{background:var(--ok);color:#fff}
+    .opt.wrong{border-color:rgba(198,40,40,.7);background:rgba(198,40,40,.10)}
+    .opt.wrong .badge{background:var(--bad);color:#fff}
+
+    .feedback{margin-top:14px;border-left:4px solid var(--g);background:rgba(31,75,62,.05);padding:12px 12px;border-radius:12px;display:none}
+    .feedback.show{display:block}
+    .fbTitle{display:flex;align-items:center;gap:8px;font-weight:900}
+    .fbText{margin-top:6px;font-size:13px;color:var(--g)}
+    .fbActions{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+    .fund{margin-top:10px;border-top:1px dashed rgba(86,106,96,.35);padding-top:10px;color:var(--gray);font-size:12.5px;display:none}
+    .fund.show{display:block}
+
+    .navRow{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .navRow .btn{min-width:140px}
+    .btn:disabled{opacity:.55;cursor:not-allowed}
+
+    /* Stats */
+    .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:12px}
+    .kpi{background:var(--p);border-radius:14px;padding:14px;text-align:center}
+    .kpi .v{font-weight:900;font-size:28px}
+    .kpi .l{font-size:12px;color:var(--gray);margin-top:2px}
+    .kpi.ok{background:rgba(46,125,50,.10);border-top:4px solid rgba(46,125,50,.65)}
+    .kpi.bad{background:rgba(198,40,40,.10);border-top:4px solid rgba(198,40,40,.65)}
+    .kpi.warn{background:rgba(239,108,0,.10);border-top:4px solid rgba(239,108,0,.65)}
+
+    .bars{margin-top:16px}
+    .barItem{display:flex;align-items:center;justify-content:space-between;gap:10px;background:rgba(31,75,62,.05);padding:10px 12px;border-radius:12px;margin-top:8px}
+    .barItem .left{font-weight:800;font-size:13px}
+    .bar{height:10px;width:160px;background:var(--p);border-radius:999px;overflow:hidden}
+    .fill{height:100%;width:0;background:var(--g);border-radius:999px}
+    .barMeta{display:flex;align-items:center;gap:10px}
+    .pct{width:46px;text-align:right;font-weight:900;font-size:12px}
+
+    /* Toast */
+    .toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:rgba(31,75,62,.92);color:#fff;padding:10px 12px;border-radius:999px;box-shadow:0 10px 28px rgba(0,0,0,.15);display:none;font-weight:800;font-size:12px;max-width:92vw}
+    .toast.show{display:block}
+
+    footer{margin-top:16px;color:var(--gray);font-size:12px;text-align:center;padding:10px 0;border-top:1px solid var(--p)}
+
+    /* Compact */
+    body.compact{--fs:14px}
+    body.compact .opt{padding:10px}
+    body.compact .content{padding:14px}
+    body.compact .sidebar{padding:12px}
+
+    @media(max-width:980px){
+      .sidebar{flex:0 0 100%}
+      .content{min-width:unset}
+      .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .bar{width:120px}
+    }
+    @media(max-width:520px){
+      .grid{grid-template-columns:1fr}
+      .navRow .btn{width:100%}
+      .navRow{flex-direction:column;align-items:stretch}
+      .header{padding:14px}
+      .content,.sidebar{padding:12px}
+      .qText{font-size:15px}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- LOGIN -->
+  <section class="login" id="loginScreen">
+    <div class="loginCard">
+      <div class="brandRow">
+        <div class="logo"><i class="fa-solid fa-shield-halved"></i></div>
+        <div>
+          <div class="brandTitle">Promotor de Seguros de Salud 2026</div>
+          <div class="brandSub">Aplicación de estudio interactiva (277 preguntas)</div>
+        </div>
+      </div>
+
+      <form id="loginForm">
+        <div class="field">
+          <div class="label">Nombre de usuario</div>
+          <input class="input" id="usernameInput" autocomplete="off" placeholder="Ej.: Vial" required />
+        </div>
+
+        <div class="field smallNote hidden" id="missingFilesMsg">
+          <strong>Atención:</strong> No se cargaron <code>preguntas.js</code> y/o <code>app.js</code>.
+          Esto suele pasar si abriste <code>index.html</code> desde dentro del <strong>.zip</strong> (Windows lo abre desde una carpeta temporal).
+          <br>
+          <strong>Solución:</strong> haz clic derecho al .zip → <strong>Extraer todo</strong> → abre el <code>index.html</code> desde la carpeta extraída.
+        </div>
+        <div class="field">
+          <button class="btn btnPrimary" style="width:100%" type="submit">
+            <i class="fa-solid fa-right-to-bracket"></i> Iniciar sesión
+          </button>
+        </div>
+      </form>
+
+      <div class="userList" id="userListWrap">
+        <h4>Usuarios existentes</h4>
+        <div id="userList"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APP -->
+  <section class="app hidden" id="appRoot">
+    <header class="header">
+      <div class="headerLeft">
+        <div class="logo"><i class="fa-solid fa-shield-halved"></i></div>
+        <div class="titleWrap">
+          <h1>Promotor de Seguros de Salud 2026</h1>
+          <p id="welcomeLine">Bienvenido</p>
+        </div>
+      </div>
+
+      <div class="headerRight">
+        <div class="statsRow">
+          <div class="stat ok"><i class="fa-solid fa-circle-check"></i> Correctas: <span id="hdrOk">0</span></div>
+          <div class="stat bad"><i class="fa-solid fa-circle-xmark"></i> Incorrectas: <span id="hdrBad">0</span></div>
+          <div class="stat neu"><i class="fa-solid fa-chart-line"></i> Progreso: <span id="hdrProg">0%</span></div>
+        </div>
+
+        <div class="userBox">
+          <div class="avatar" id="avatar">U</div>
+          <div class="userMeta">
+            <div class="name" id="userName">Usuario</div>
+            <div class="actions">
+              <button class="btn btnDanger" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Salir</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="main">
+      <aside class="card sidebar">
+        <div class="secTitle">Bloques de Estudio</div>
+        <div class="blockList" id="blockList"></div>
+
+        <div class="divider"></div>
+
+        <div class="secTitle">Modos</div>
+        <div class="modeGrid">
+          <button class="btn btnSoft" id="modeStudy"><i class="fa-solid fa-book-open"></i> Modo Estudio</button>
+          <button class="btn btnSoft" id="modeQuiz"><i class="fa-solid fa-stopwatch"></i> Quiz Cronometrado</button>
+          <button class="btn btnWarn" id="modeChallenge"><i class="fa-solid fa-trophy"></i> Modo Desafío</button>
+          <button class="btn btnSoft" id="modeStats"><i class="fa-solid fa-chart-column"></i> Ver Estadísticas</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="secTitle">Configuración</div>
+        <div class="modeGrid">
+          <button class="btn btnSoft" id="resetBtn"><i class="fa-solid fa-rotate"></i> Reiniciar Progreso</button>
+          <button class="btn btnSoft" id="compactBtn"><i class="fa-solid fa-mobile-screen-button"></i> Vista Compacta</button>
+        </div>
+
+        <div class="divider"></div>
+        <div class="secTitle">Información</div>
+        <div class="smallNote">
+          Banco de 277 preguntas (Ley 87-01, Ley 397-19, Ley 136-03 y resoluciones).<br/>
+          La justificación legal se muestra únicamente si presionas <b>Ver fundamentos</b> después de responder.
+        </div>
+      </aside>
+
+      <section class="card content">
+        <!-- STUDY PANEL -->
+        <div class="panel show" id="panelStudy">
+          <div class="qTop">
+            <div>
+              <div class="qMeta" id="qBlock">Bloque: —</div>
+              <div class="qText" id="qText">—</div>
+            </div>
+            <div class="qCount">Pregunta <span id="qPos">1</span> de <span id="qTotal">277</span></div>
+          </div>
+
+          <div class="opts" id="opts"></div>
+
+          <div class="feedback" id="feedback">
+            <div class="fbTitle"><i class="fa-solid fa-circle-info"></i> Retroalimentación</div>
+            <div class="fbText" id="fbText">—</div>
+            <div class="fbActions" id="fbActions">
+              <button class="btn btnSoft" id="fundBtn"><i class="fa-solid fa-scale-balanced"></i> Ver fundamentos</button>
+            </div>
+            <div class="fund" id="fundBox"></div>
+          </div>
+
+          <div class="navRow">
+            <button class="btn btnSoft" id="prevBtn"><i class="fa-solid fa-arrow-left"></i> Anterior</button>
+            <button class="btn btnSoft" id="hintBtn"><i class="fa-solid fa-lightbulb"></i> Pista</button>
+            <button class="btn btnPrimary" id="nextBtn">Siguiente <i class="fa-solid fa-arrow-right"></i></button>
+            <button class="btn btnSoft" id="showBtn"><i class="fa-solid fa-eye"></i> Ver Respuesta</button>
+          </div>
+        </div>
+
+        <!-- GAME PANEL -->
+        <div class="panel" id="panelGame">
+          <div class="qTop">
+            <div>
+              <div class="qMeta" id="gTitle">Quiz</div>
+              <div class="qText" id="gQText">—</div>
+            </div>
+            <div class="qCount"><i class="fa-solid fa-clock"></i> <span id="gTimer">05:00</span></div>
+          </div>
+
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+            <div class="kpi" style="flex:1;min-width:160px"><div class="v" id="gScore">0</div><div class="l">Puntuación</div></div>
+            <div class="kpi ok" style="flex:1;min-width:160px"><div class="v" id="gOk">0</div><div class="l">Correctas</div></div>
+            <div class="kpi bad" style="flex:1;min-width:160px"><div class="v" id="gBad">0</div><div class="l">Incorrectas</div></div>
+            <div class="kpi warn" style="flex:1;min-width:160px"><div class="v" id="gLeft">0</div><div class="l">Restantes</div></div>
+          </div>
+
+          <div class="opts" id="gOpts" style="margin-top:12px"></div>
+
+          <div class="feedback" id="gFeedback">
+            <div class="fbTitle"><i class="fa-solid fa-circle-info"></i> Retroalimentación</div>
+            <div class="fbText" id="gFbText">—</div>
+            <div class="fbActions">
+              <button class="btn btnSoft hidden" id="gFundBtn"><i class="fa-solid fa-scale-balanced"></i> Ver fundamentos</button>
+            </div>
+            <div class="fund" id="gFundBox"></div>
+          </div>
+
+          <div class="navRow">
+            <button class="btn btnSoft" id="gEndBtn"><i class="fa-solid fa-stop"></i> Terminar</button>
+            <button class="btn btnPrimary" id="gNextBtn">Siguiente <i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </div>
+
+        <!-- STATS PANEL -->
+        <div class="panel" id="panelStats">
+          <div class="qTop">
+            <div>
+              <div class="qMeta">Resumen</div>
+              <div class="qText">Estadísticas de Rendimiento</div>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end">
+              <button class="btn btnSoft" id="exportJsonBtn"><i class="fa-solid fa-download"></i> Exportar JSON</button>
+              <button class="btn btnSoft" id="exportCsvBtn"><i class="fa-solid fa-download"></i> Exportar CSV</button>
+              <button class="btn btnSoft" id="backBtn"><i class="fa-solid fa-arrow-left"></i> Volver</button>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="kpi ok"><div class="v" id="sOk">0</div><div class="l">Respuestas Correctas</div></div>
+            <div class="kpi bad"><div class="v" id="sBad">0</div><div class="l">Respuestas Incorrectas</div></div>
+            <div class="kpi"><div class="v" id="sAns">0</div><div class="l">Preguntas Respondidas</div></div>
+            <div class="kpi warn"><div class="v" id="sAcc">0%</div><div class="l">Tasa de Aciertos</div></div>
+          </div>
+
+          <div class="bars">
+            <div class="secTitle" style="margin-top:14px">Rendimiento por Bloques</div>
+            <div id="bars"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      © 2026 — App de Estudio (uso educativo). Auditoría: <span id="auditBadge">—</span>
+    </footer>
+  </section>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="./preguntas.js"></script>
+  <script src="./app.js"></script>
+  <script>
+    // Diagnóstico rápido: si abriste solo index.html (por ejemplo, desde dentro del .zip),
+    // es posible que no se carguen preguntas.js/app.js. Mostramos una advertencia en el login.
+    setTimeout(() => {
+      if (!window.PSS_APP_READY) {
+        const msg = document.getElementById("missingFilesMsg");
+        if (msg) msg.classList.remove("hidden");
+      }
+    }, 300);
+  </script>
+</body>
+</html>
